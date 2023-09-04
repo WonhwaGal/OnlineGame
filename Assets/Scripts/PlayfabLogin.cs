@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine.UI;
@@ -9,6 +10,8 @@ public class PlayfabLogin : MonoBehaviour
     [SerializeField] private Button _loginButton;
     [SerializeField] private TextMeshProUGUI _text;
     [SerializeField] private Toggle _errorToggle;
+
+    private const string AuthGuidKey = "auth_guid_key";
 
     void Start()
     {
@@ -25,12 +28,21 @@ public class PlayfabLogin : MonoBehaviour
         else
             PlayFabSettings.staticSettings.TitleId = "F079C";
 
+        var needCreation = PlayerPrefs.HasKey(AuthGuidKey);
+        var id = PlayerPrefs.GetString(AuthGuidKey, Guid.NewGuid().ToString());
+
         var request = new LoginWithCustomIDRequest
         {
-            CustomId = "Player 1",
-            CreateAccount = true
+            CustomId = id,
+            CreateAccount = !needCreation
         };
-        PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess, OnLoginError);
+        PlayFabClientAPI.LoginWithCustomID(request, 
+            result =>
+            {
+                PlayerPrefs.SetString(AuthGuidKey, id);
+                OnLoginSuccess(result);
+            },
+            OnLoginError);
     }
 
     private void OnLoginSuccess(LoginResult result)
