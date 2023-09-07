@@ -1,0 +1,416 @@
+{
+  "CatalogVersion": "homework",
+  "Catalog": [
+    {
+      "ItemId": "Swords_W1",
+      "ItemClass": "Swords",
+      "CatalogVersion": "homework",
+      "DisplayName": "Wooden sword",
+      "Description": "Normal wooden sword",
+      "VirtualCurrencyPrices": {
+        "PC": 10
+      },
+      "RealCurrencyPrices": {},
+      "Tags": [
+        "\"sword",
+        "weapon\""
+      ],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": 1,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": true,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "Staffs_W1",
+      "ItemClass": "Staffs",
+      "CatalogVersion": "homework",
+      "DisplayName": "Wooden Staff",
+      "Description": "a wooden staff with minimal power",
+      "VirtualCurrencyPrices": {
+        "PC": 30
+      },
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "\"staff",
+        "weapon",
+        "magic\""
+      ],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "Swords_S2",
+      "ItemClass": "Swords",
+      "CatalogVersion": "homework",
+      "DisplayName": "Steel sword",
+      "Description": "A nortmal metal sword",
+      "VirtualCurrencyPrices": {
+        "PC": 50
+      },
+      "RealCurrencyPrices": {},
+      "Tags": [
+        "\"sword",
+        "weapon\""
+      ],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": true,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "Swords_M3",
+      "ItemClass": "Swords",
+      "CatalogVersion": "homework",
+      "DisplayName": "Magic sword",
+      "Description": "A magic sword with additional damage and protection",
+      "VirtualCurrencyPrices": {
+        "PC": 150
+      },
+      "RealCurrencyPrices": {},
+      "Tags": [
+        "\"sword",
+        "weapon",
+        "magic\""
+      ],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": true,
+      "IsTradable": false,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": true,
+      "InitialLimitedEditionCount": 5,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "Staffs_M3",
+      "ItemClass": "Staffs",
+      "CatalogVersion": "homework",
+      "DisplayName": "Magic Staff",
+      "Description": "A magic staff with additional damage power",
+      "VirtualCurrencyPrices": {
+        "PC": 200
+      },
+      "RealCurrencyPrices": {},
+      "Tags": [
+        "\"staff",
+        "weapon",
+        "magic\""
+      ],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": true,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "Armor_S2",
+      "ItemClass": "Armor",
+      "CatalogVersion": "homework",
+      "DisplayName": "Steel Armor",
+      "Description": "Normal steel armor",
+      "VirtualCurrencyPrices": {
+        "PC": 30
+      },
+      "RealCurrencyPrices": {},
+      "Tags": [
+        "\"armor",
+        "defence\""
+      ],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "Armor_M3",
+      "ItemClass": "Armor",
+      "CatalogVersion": "homework",
+      "DisplayName": "Magic Armor",
+      "Description": "Magic armor with additional defence power",
+      "VirtualCurrencyPrices": {
+        "PC": 120
+      },
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "\"armor",
+        "defence\""
+      ],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": null,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": true,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "Crafts_P1",
+      "ItemClass": "Crafts",
+      "CatalogVersion": "homework",
+      "DisplayName": "Potion",
+      "Description": "Magic potion increasing HP",
+      "VirtualCurrencyPrices": {
+        "PC": 70
+      },
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "\"crafts",
+        "magic\""
+      ],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": 1,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "Riddles_K1",
+      "ItemClass": "Riddles",
+      "CatalogVersion": "homework",
+      "DisplayName": "Key",
+      "Description": "Key opens a chest",
+      "VirtualCurrencyPrices": {
+        "PC": 70
+      },
+      "RealCurrencyPrices": null,
+      "Tags": [
+        "\"riddles\""
+      ],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": 1,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": null,
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "Bundles_Magic1",
+      "ItemClass": "MagicBundles",
+      "CatalogVersion": "homework",
+      "DisplayName": "Magic Bundle",
+      "Description": null,
+      "VirtualCurrencyPrices": {
+        "PC": 200
+      },
+      "RealCurrencyPrices": null,
+      "Tags": [],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": 1,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": {
+        "BundledItems": [
+          "Crafts_P1",
+          "Staffs_M3"
+        ],
+        "BundledResultTables": [],
+        "BundledVirtualCurrencies": null
+      },
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "Bundles_Magic2",
+      "ItemClass": "MagicBundles",
+      "CatalogVersion": "homework",
+      "DisplayName": "Magic Bundle",
+      "Description": null,
+      "VirtualCurrencyPrices": {
+        "PC": 230
+      },
+      "RealCurrencyPrices": {},
+      "Tags": [],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": 1,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": {
+        "BundledItems": [
+          "Swords_M3",
+          "Armor_M3"
+        ],
+        "BundledResultTables": [],
+        "BundledVirtualCurrencies": null
+      },
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    },
+    {
+      "ItemId": "Bundles_Riddles1",
+      "ItemClass": "MagicBundles",
+      "CatalogVersion": "homework",
+      "DisplayName": "Riddle Bundle",
+      "Description": "Helps with solving riddles",
+      "VirtualCurrencyPrices": {
+        "PC": 350
+      },
+      "RealCurrencyPrices": {},
+      "Tags": [],
+      "CustomData": null,
+      "Consumable": {
+        "UsageCount": 1,
+        "UsagePeriod": null,
+        "UsagePeriodGroup": null
+      },
+      "Container": null,
+      "Bundle": {
+        "BundledItems": [
+          "Riddles_K1",
+          "Crafts_P1"
+        ],
+        "BundledResultTables": [],
+        "BundledVirtualCurrencies": null
+      },
+      "CanBecomeCharacter": false,
+      "IsStackable": false,
+      "IsTradable": false,
+      "ItemImageUrl": null,
+      "IsLimitedEdition": false,
+      "InitialLimitedEditionCount": 0,
+      "ActivatedMembership": null
+    }
+  ],
+  "DropTables": [
+    {
+      "TableId": "LevelPassAward_1",
+      "Nodes": [
+        {
+          "ResultItemType": "ItemId",
+          "ResultItem": "Swords_W1",
+          "Weight": 25
+        },
+        {
+          "ResultItemType": "ItemId",
+          "ResultItem": "Staffs_W1",
+          "Weight": 25
+        },
+        {
+          "ResultItemType": "ItemId",
+          "ResultItem": "Swords_S2",
+          "Weight": 20
+        },
+        {
+          "ResultItemType": "ItemId",
+          "ResultItem": "Armor_S2",
+          "Weight": 20
+        },
+        {
+          "ResultItemType": "ItemId",
+          "ResultItem": "Crafts_P1",
+          "Weight": 7
+        },
+        {
+          "ResultItemType": "ItemId",
+          "ResultItem": "Bundles_Magic1",
+          "Weight": 3
+        }
+      ]
+    }
+  ]
+}

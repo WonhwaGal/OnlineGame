@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: PlayFabEditorPrefsSO
   m_EditorClassIdentifier: 
   DevAccountEmail: reginashaykh@gmail.com
-  DevAccountToken: gtu475suhjd75ygngefezwdjet34w5qkmfyjdx5oj8mr1wq69qdd5h4eoamxi8ot6rbz7xsk9h31k3x96wb99iqkwqpzp4dsesw19uiqhreqjm9xh6hppguyftmn4txi8ssth7w9tu7npmzoyko6n19tepq9adxbpmxdoq93t46w415gzbh6sefpmb5kzbfji8x1thrr
+  DevAccountToken: be1sfm3kexq41fgtcwrgig9uom6bg38p958canteja7rigrtmxnbqss9hcd9aid88sx6tmxtgg4no5fdxrdpg9e7p7emw81aywx1uxkag87epgiqkff6gsa6sy95hdti337grya4jzy5ezxw63fwjfgw3j7pgqgozzx7mnf86knmwe3ssfeb1u6g45pjcni54cg33pxg
   SelectedStudio: NewOnlineStudio
   SdkPath: Assets/PlayFabSDK
   EdExPath: 
-  LocalCloudScriptPath: 
+  LocalCloudScriptPath: C:/Unity/Study_Projects/OnlineGame/Assets/PlayFabEditorExtensions/Editor/Resources/.CloudScript.js
   PanelIsShown: 0
-  curMainMenuIdx: 4
+  curMainMenuIdx: 0
   curSubMenuIdx: 0
