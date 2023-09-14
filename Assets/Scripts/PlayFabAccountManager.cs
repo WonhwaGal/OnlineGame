@@ -1,5 +1,6 @@
 using PlayFab;
 using PlayFab.ClientModels;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -17,9 +18,9 @@ public class PlayFabAccountManager : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(LoadingMessage());
+        //StartCoroutine(LoadingMessage());
         PlayFabClientAPI.GetAccountInfo(new GetAccountInfoRequest(), OnGetAccount, OnError);
-        PlayFabClientAPI.GetCatalogItems(new GetCatalogItemsRequest(), OnGetCatalogSuccess, OnError);
+        //PlayFabClientAPI.GetCatalogItems(new GetCatalogItemsRequest(), OnGetCatalogSuccess, OnError);
         //PlayFabServerAPI.GetRandomResultTables(new PlayFab.ServerModels.GetRandomResultTablesRequest(), OnGetRandomResultTables, OnError);
     }
 
@@ -65,6 +66,7 @@ public class PlayFabAccountManager : MonoBehaviour
 
     private void OnGetAccount(GetAccountInfoResult result)
     {
+        GetUserData(result.AccountInfo.PlayFabId, "startHP");
         _waitingForData = false;
         _titleLabel.text = $"User Name: {result.AccountInfo.Username}\nPlayFab ID: {result.AccountInfo.PlayFabId}";
     }
@@ -86,5 +88,27 @@ public class PlayFabAccountManager : MonoBehaviour
                 _titleLabel.text = "Loading client data ";
             }
         }
+    }
+
+    private void GetUserData(string playFabId, string keyData)
+    {
+        PlayFabClientAPI.GetUserData(new GetUserDataRequest
+        {
+            PlayFabId = playFabId
+        },
+        result =>
+        {
+            if (keyData == "startHP" && result.Data.ContainsKey(keyData))
+            {
+                float number = 0;
+                if(float.TryParse(result.Data[keyData].Value, out number))
+                {
+                    PhotonGameManager.Instance.PlayerStartHP = number;
+                    Debug.Log($"PhotonGameManager HP taken from Playfab is {PhotonGameManager.Instance.PlayerStartHP}");
+                }
+
+            }
+        },
+        OnError);
     }
 }

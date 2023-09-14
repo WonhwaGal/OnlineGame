@@ -29,7 +29,15 @@ namespace Photon.Pun.Demo.PunBasics
 
 	    [Tooltip("UI Text to display Player's Name")]
 	    [SerializeField]
-	    private Text playerNameText;
+	    private Text playerNameText;	    
+		
+		[Tooltip("UI Text to display Player's ID")]
+	    [SerializeField]
+	    private Text playerIdText;		
+		
+		[Tooltip("UI Text to display Player's ID")]
+	    [SerializeField]
+	    private Text playerHPText;
 
 	    [Tooltip("UI Slider to display Player's Health")]
 	    [SerializeField]
@@ -48,17 +56,15 @@ namespace Photon.Pun.Demo.PunBasics
 		Vector3 targetPosition;
 
 		#endregion
-
+		//PhotonNetwork.NickName = value;
 		#region MonoBehaviour Messages
-		
+
 		/// <summary>
 		/// MonoBehaviour method called on GameObject by Unity during early initialization phase
 		/// </summary>
 		void Awake()
 		{
-
 			_canvasGroup = this.GetComponent<CanvasGroup>();
-			
 			this.transform.SetParent(GameObject.Find("Canvas").GetComponent<Transform>(), false);
 		}
 
@@ -74,9 +80,12 @@ namespace Photon.Pun.Demo.PunBasics
 				return;
 			}
 
+			playerIdText.text = target.Id.ToString();
+			playerHPText.text = target.Health.ToString("F1");
 
 			// Reflect the Player Health
-			if (playerHealthSlider != null) {
+			if (playerHealthSlider != null) 
+			{
 				playerHealthSlider.value = target.Health;
 			}
 		}
@@ -127,9 +136,9 @@ namespace Photon.Pun.Demo.PunBasics
 			this.target = _target;
             targetTransform = this.target.GetComponent<Transform>();
             targetRenderer = this.target.GetComponentInChildren<Renderer>();
+			//playerHealthSlider.maxValue = target.Health;
 
-
-            CharacterController _characterController = this.target.GetComponent<CharacterController> ();
+			CharacterController _characterController = this.target.GetComponent<CharacterController> ();
 
 			// Get data from the Player that won't change during the lifetime of this Component
 			if (_characterController != null){

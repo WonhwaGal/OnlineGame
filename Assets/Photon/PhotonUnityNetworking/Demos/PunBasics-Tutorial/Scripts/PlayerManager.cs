@@ -21,10 +21,13 @@ namespace Photon.Pun.Demo.PunBasics
     /// </summary>
     public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     {
+        private const float _defaultHealth = 1.0f;
+
         #region Public Fields
 
         [Tooltip("The current Health of our player")]
-        public float Health = 1f;
+        public float Health {get; set;}
+        public float MaxHealth {get; set;}
 
         [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
         public static GameObject LocalPlayerInstance;
@@ -41,6 +44,12 @@ namespace Photon.Pun.Demo.PunBasics
         [SerializeField]
         private GameObject beams;
 
+        private float _id;
+        public float Id
+        {
+            get => photonView.ViewID;
+            set => _id = value;
+        }
         //True, when the user is firing
         bool IsFiring;
 
@@ -80,7 +89,8 @@ namespace Photon.Pun.Demo.PunBasics
         public void Start()
         {
             CameraWork _cameraWork = gameObject.GetComponent<CameraWork>();
-
+            Health = _defaultHealth;
+            MaxHealth = _defaultHealth;
             if (_cameraWork != null)
             {
                 if (photonView.IsMine)
@@ -161,11 +171,11 @@ namespace Photon.Pun.Demo.PunBasics
         /// </summary>
         public void OnTriggerEnter(Collider other)
         {
+            Debug.Log($"{PhotonNetwork.NickName} on trigger enter with {other.name}");
             if (!photonView.IsMine)
             {
                 return;
             }
-
 
             // We are only interested in Beamers
             // we should be using tags but for the sake of distribution, let's simply check by name.
@@ -173,7 +183,6 @@ namespace Photon.Pun.Demo.PunBasics
             {
                 return;
             }
-
             this.Health -= 0.1f;
         }
 
@@ -281,12 +290,14 @@ namespace Photon.Pun.Demo.PunBasics
                 // We own this player: send the others our data
                 stream.SendNext(this.IsFiring);
                 stream.SendNext(this.Health);
+                stream.SendNext(Id);
             }
             else
             {
                 // Network player, receive data
                 this.IsFiring = (bool)stream.ReceiveNext();
                 this.Health = (float)stream.ReceiveNext();
+                Id = (float)stream.ReceiveNext();
             }
         }
 

@@ -1,6 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using PlayFab;
+using PlayFab.ClientModels;
+using System;
+using System.Collections.Generic;
+
 
 public class AccountDataWindowBase : MonoBehaviour
 {
@@ -30,6 +35,7 @@ public class AccountDataWindowBase : MonoBehaviour
     private void UpdateUserName(string username)
     {
         _username = username;
+        PhotonLauncher.SetNickName(username);
     }
 
     protected void EnterInGameScene()
@@ -41,5 +47,27 @@ public class AccountDataWindowBase : MonoBehaviour
     {
         _loadingSign.gameObject.SetActive(true);
         _loadingSign.StartLoading();
+    }
+
+    protected void SetUserData(string playFabId)
+    {
+        PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest
+        {
+            Data = new Dictionary<string, string>
+            {
+                {"time_receive_daily_reward", DateTime.UtcNow.ToString() },
+                {"startHP",  "2" }
+            }
+        },
+        result =>
+        {
+            Debug.Log("SetUserData");
+        },
+        OnLoginError);
+    }
+    private void OnLoginError(PlayFabError error)
+    {
+        var errorMessage = error.GenerateErrorReport();
+        Debug.LogError(errorMessage);
     }
 }

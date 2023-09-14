@@ -4,6 +4,8 @@ using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections.Generic;
+using System.Linq;
 
 public class PlayfabLogin : MonoBehaviour
 {
@@ -19,6 +21,7 @@ public class PlayfabLogin : MonoBehaviour
             PlayFabSettings.staticSettings.TitleId = "F079C";
         _loginButton.onClick.AddListener(LogIn);
         _errorToggle.isOn = false;
+        //LogIn();   // to log in automatically
     }
 
     private void LogIn()
@@ -50,6 +53,86 @@ public class PlayfabLogin : MonoBehaviour
         _text.color = Color.green;
         _text.text = "Successful login";
         Debug.Log("Successful login!!!");
+
+        //SetUserData(result.PlayFabId);
+        //MakePurchase();
+        //GetInventory();
+    }
+
+    private void GetInventory()
+    {
+        PlayFabClientAPI.GetUserInventory(
+            new GetUserInventoryRequest(),
+            result => ShowInventory(result.Inventory),
+            OnLoginError);
+    }
+
+    private void ShowInventory(List<ItemInstance> inventory)
+    {
+        var firstItem = inventory.First();
+        Debug.Log($"item id : {firstItem.ItemId}");
+        ConsumePotion(firstItem.ItemInstanceId);
+    }
+
+    private void ConsumePotion(string itemInstanceId)
+    {
+        PlayFabClientAPI.ConsumeItem(new ConsumeItemRequest
+        {
+            ConsumeCount = 1,
+            ItemInstanceId = itemInstanceId,
+        },
+        result =>
+        {
+            Debug.Log("Complete consume item");
+        },
+        OnLoginError);
+    }
+
+    private void MakePurchase()
+    {
+        PlayFabClientAPI.PurchaseItem(new PurchaseItemRequest
+        {
+            CatalogVersion = "homework",
+            ItemId = "Crafts_P1",
+            Price = 10,
+            VirtualCurrency = "PC"
+        },
+        result =>
+        {
+            Debug.Log("Complete Purchase Item");
+        },
+        OnLoginError);
+    }
+
+    private void SetUserData(string playFabId)
+    {
+        PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest
+        {
+            Data = new Dictionary<string, string>
+            {
+                {"time_receive_daily_reward", DateTime.UtcNow.ToString() },
+            }
+        }, 
+        result =>
+        {
+            Debug.Log("SetUserData");
+            GetUserData(playFabId, "time_receive_daily_reward");
+        }, 
+        OnLoginError);
+    }
+
+    private void GetUserData(string playFabId, string keyData)
+    {
+        PlayFabClientAPI.GetUserData(new GetUserDataRequest
+        {
+            PlayFabId = playFabId
+        },
+        result =>
+        {
+            if (result.Data.ContainsKey(keyData))
+                Debug.Log($"{keyData} : {result.Data[keyData].Value}");  
+        }, 
+        OnLoginError);
     }
 
     private void OnLoginError(PlayFabError error)
