@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayFabAccountManager : MonoBehaviour
 {
@@ -12,16 +13,103 @@ public class PlayFabAccountManager : MonoBehaviour
     [SerializeField] private UICatalogItem _itemPrefab;
     [SerializeField] private Transform _catalogPanel;
     [SerializeField] private Transform _bundlePanel;
+    [SerializeField] private GameObject _newCharacterCreatePanel;
+    [SerializeField] private Button _createCharacterButton;
+    [SerializeField] private TMP_InputField _inputField;
+    [SerializeField] private List<SlotCharacterWidget> _slots;
 
+    private string _characterName;
     private bool _waitingForData = true;
     private WaitForSeconds _span = new WaitForSeconds(0.5f);
 
     void Start()
     {
         //StartCoroutine(LoadingMessage());
-        PlayFabClientAPI.GetAccountInfo(new GetAccountInfoRequest(), OnGetAccount, OnError);
+        //PlayFabClientAPI.GetAccountInfo(new GetAccountInfoRequest(), OnGetAccount, OnError);
         //PlayFabClientAPI.GetCatalogItems(new GetCatalogItemsRequest(), OnGetCatalogSuccess, OnError);
         //PlayFabServerAPI.GetRandomResultTables(new PlayFab.ServerModels.GetRandomResultTablesRequest(), OnGetRandomResultTables, OnError);
+        GetCharacters();
+        foreach(var slot in _slots)
+            slot.SlotButton.onClick.AddListener(OpenCreateNewCharacter);
+        _inputField.onValueChanged.AddListener(OnNameChanged);
+        _createCharacterButton.onClick.AddListener(CreateCharacter);
+    }
+
+    private void CreateCharacter()
+    {
+        PlayFabClientAPI.GrantCharacterToUser(new GrantCharacterToUserRequest
+        {
+            CharacterName = _characterName,
+            ItemId = "Character_token"
+        },
+        result =>
+        {
+            UpdateCharacterStatistics(result.CharacterId);
+        }, OnError);
+    }
+
+    private void UpdateCharacterStatistics(string characterID)
+    {
+        PlayFabClientAPI.UpdateCharacterStatistics(new UpdateCharacterStatisticsRequest
+        {
+            CharacterId = characterID,
+            CharacterStatistics = new Dictionary<string, int>
+            {
+                {"Level", 1 },
+                {"Gold", 0 }
+            }
+        },
+        result => 
+        {
+            Debug.Log("Character creation completed!!!");
+            CloseCreateNewCharacter();
+            GetCharacters();
+        }, OnError);
+    }
+
+    private void OnNameChanged(string name)
+    {
+        _characterName = name;
+    }
+
+    private void OpenCreateNewCharacter() => _newCharacterCreatePanel.SetActive(true);
+
+    private void CloseCreateNewCharacter() => _newCharacterCreatePanel.SetActive(false);
+
+    private void GetCharacters()
+    {
+        PlayFabClientAPI.GetAllUsersCharacters(new ListUsersCharactersRequest(),
+        result =>
+        {
+            Debug.Log("Character count is" + result.Characters.Count);
+            ShowCharactersInSlots(result.Characters);
+        }, OnError);
+    }
+
+    private void ShowCharactersInSlots(List<CharacterResult> characters)
+    {
+        if (characters.Count == 0)
+        {
+            foreach (var slot in _slots)
+                slot.ShowEmptySlot();
+        }
+        else if (characters.Count > 0 && characters.Count <= _slots.Count)
+        {
+            PlayFabClientAPI.GetCharacterStatistics(new GetCharacterStatisticsRequest
+            {
+                CharacterId = characters[0].CharacterId
+            },
+            result =>
+            {
+                var level = result.CharacterStatistics["Level"].ToString();
+                var gold = result.CharacterStatistics["Gold"].ToString();
+                _slots[0].ShowCharacterSlost(characters[0].CharacterName, level, gold);
+            }, OnError);
+        }
+        else
+        {
+            Debug.Log("Add slots for characters");
+        }
     }
 
     private void OnGetRandomResultTables(PlayFab.ServerModels.GetRandomResultTablesResult result)
