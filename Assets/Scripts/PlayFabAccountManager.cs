@@ -19,6 +19,7 @@ public class PlayFabAccountManager : MonoBehaviour
     [SerializeField] private List<SlotCharacterWidget> _slots;
 
     private string _characterName;
+    private float _startHP;
     private bool _waitingForData = true;
     private WaitForSeconds _span = new WaitForSeconds(0.5f);
 
@@ -40,7 +41,7 @@ public class PlayFabAccountManager : MonoBehaviour
         PlayFabClientAPI.GrantCharacterToUser(new GrantCharacterToUserRequest
         {
             CharacterName = _characterName,
-            ItemId = "Character_token"
+            ItemId = "Robot_token"
         },
         result =>
         {
@@ -56,7 +57,10 @@ public class PlayFabAccountManager : MonoBehaviour
             CharacterStatistics = new Dictionary<string, int>
             {
                 {"Level", 1 },
-                {"Gold", 0 }
+                {"Gold", 0 },
+                {"HP", 2 },   //(int)_startHP
+                {"Damage", 5},
+                {"Experience", 0 }
             }
         },
         result => 
@@ -67,10 +71,7 @@ public class PlayFabAccountManager : MonoBehaviour
         }, OnError);
     }
 
-    private void OnNameChanged(string name)
-    {
-        _characterName = name;
-    }
+    private void OnNameChanged(string name) => _characterName = name;
 
     private void OpenCreateNewCharacter() => _newCharacterCreatePanel.SetActive(true);
 
@@ -88,23 +89,28 @@ public class PlayFabAccountManager : MonoBehaviour
 
     private void ShowCharactersInSlots(List<CharacterResult> characters)
     {
-        if (characters.Count == 0)
+        foreach (var slot in _slots)
+            slot.ShowEmptySlot();
+
+        if (characters.Count > 0 && characters.Count <= _slots.Count)
         {
-            foreach (var slot in _slots)
-                slot.ShowEmptySlot();
-        }
-        else if (characters.Count > 0 && characters.Count <= _slots.Count)
-        {
-            PlayFabClientAPI.GetCharacterStatistics(new GetCharacterStatisticsRequest
+            for(int i = 0; i < characters.Count; i++)
             {
-                CharacterId = characters[0].CharacterId
-            },
-            result =>
-            {
-                var level = result.CharacterStatistics["Level"].ToString();
-                var gold = result.CharacterStatistics["Gold"].ToString();
-                _slots[0].ShowCharacterSlost(characters[0].CharacterName, level, gold);
-            }, OnError);
+                int index = i;
+                PlayFabClientAPI.GetCharacterStatistics(new GetCharacterStatisticsRequest
+                {
+                    CharacterId = characters[index].CharacterId
+                },
+                result =>
+                {
+                    var level = result.CharacterStatistics["Level"].ToString();
+                    var gold = result.CharacterStatistics["Gold"].ToString();
+                    var hp = result.CharacterStatistics["HP"].ToString();
+                    var damage = result.CharacterStatistics["Damage"].ToString();
+                    var experience = result.CharacterStatistics["Experience"].ToString();
+                    _slots[index].ShowCharacterSlost(characters[index].CharacterName, level, gold, hp, damage, experience);
+                }, OnError);
+            }
         }
         else
         {
@@ -192,6 +198,7 @@ public class PlayFabAccountManager : MonoBehaviour
                 if(float.TryParse(result.Data[keyData].Value, out number))
                 {
                     PhotonGameManager.Instance.PlayerStartHP = number;
+                    _startHP = number;
                     Debug.Log($"PhotonGameManager HP taken from Playfab is {PhotonGameManager.Instance.PlayerStartHP}");
                 }
 
